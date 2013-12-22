@@ -5,7 +5,7 @@ public class CloneGraph1 {
 	public static <T> GraphNode<T> cloneGraph(GraphNode<T> node){
 		GraphNode<T> root = null;
 		GraphNode<T> cloned = null;
-		Queue<GraphNode> queue = new LinkedList<>();
+		Queue<GraphNode<T>> queue = new LinkedList<>();
 		Map<GraphNode<T>,GraphNode<T>> map = new HashMap<>();
 		Set<GraphNode<T>> visitSet = new HashSet<>();
 		queue.add(node);
