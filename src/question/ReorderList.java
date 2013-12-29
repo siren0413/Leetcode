@@ -25,7 +25,7 @@ public class ReorderList {
 			temp = temp.next.next;
 		}
 	}
-		
+	
 	public static ListNode reverseList(ListNode head, ListNode pre){
 		if(head == null)
 			return pre;
@@ -49,5 +49,4 @@ public class ReorderList {
 			node1 = node1.next;
 		}
 	}
-	
 }

@@ -18,4 +18,5 @@ public class InsertionSortList {
 		insertionSortList(head.next);
 		return head;
 	}
+	
 }
