@@ -20,7 +20,7 @@ public class WordBreak {
 		table[0] = true;
 
 		for(int i = 0; i < table.length; i++){
-			if(table[i] == true){
+			if(table[i]){
 				for(int j = i; j < s.length()+1; j++){
 					if(dict.contains(s.substring(i,j)))
 						table[j] = true;

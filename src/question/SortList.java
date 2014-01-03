@@ -26,8 +26,7 @@ public class SortList {
 		slow.next = null;
 		ListNode left = mergeSort(start,slow);
 		ListNode right = mergeSort(mid,end);
-		ListNode head = merge(left,right);
-		return head;
+		return merge(left,right);
 	}
 	
 	public static ListNode merge(ListNode left, ListNode right){
@@ -37,7 +36,6 @@ public class SortList {
 		while(small.next!=null && big!=null){
 			if(small.next.val < big.val){
 				small = small.next;
-				continue;
 			}else{
 				ListNode tempBig = big;
 				big = big.next;

@@ -3,3 +3,6 @@
 
 /bin/
 /.DS_Store
+/out/production/Leetcode/question/*.class
+
+/out/production/Leetcode/beans/*.class
