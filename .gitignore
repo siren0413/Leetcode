@@ -6,3 +6,5 @@
 /out/production/Leetcode/question/*.class
 
 /out/production/Leetcode/beans/*.class
+
+/.idea/
