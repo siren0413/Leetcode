@@ -1,7 +1,7 @@
 package beans;
 
 public class TreeNode <T>{
-	public T data;
+	public T val;
 	public TreeNode<T> left;
 	public TreeNode<T> right;
 	public TreeNode<T> parent;
@@ -9,15 +9,15 @@ public class TreeNode <T>{
 	
 	public TreeNode(){}
 	public TreeNode(T data){
-		this.data = data;	
+		this.val = data;
 	}
 	public TreeNode(T data, TreeNode<T> left, TreeNode<T> right){
-		this.data = data;
+		this.val = data;
 		this.left = left;
 		this.right = right;	
 	}
 	
 	public String toString(){
-		return ""+data;	
+		return ""+val;
 	}
 }

@@ -12,7 +12,7 @@ public class BinaryTreePostorderTraversal {
         ArrayList<Integer> left = postorderTraversal(root.left);
         ArrayList<Integer> right = postorderTraversal(root.right);
         left.addAll(right);
-        left.add(root.data);
+        left.add(root.val);
         return left;
     }
 }

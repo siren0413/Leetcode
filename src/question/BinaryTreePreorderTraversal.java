@@ -9,7 +9,7 @@ public class BinaryTreePreorderTraversal {
 		if (root == null) {
 			return r;
 		}
-		r.add(root.data);
+		r.add(root.val);
 		ArrayList<Integer> left = preorderTraversal(root.left);
 		ArrayList<Integer> right = preorderTraversal(root.right);
 		if (left != null)
