@@ -18,24 +18,28 @@ public class PathSum2 {
     }
 
     public static void pathSumHelper(TreeNode root, int sum, ArrayList<ArrayList<Integer>> result, ArrayList<Integer> subList){
-        if(root== null){
-            if(sum == 0){
+        // add node's value
+        subList.add((int)root.val);
+
+        // check left and right, if both null, it's the leaf.
+        if(root.left == null && root.right ==null){
+            if((sum -(int)root.val) ==0){
                 ArrayList list = new ArrayList(subList);
                 result.add(list);
+                subList.remove(subList.size()-1);
+                return;
             }
-            return;
         }
-        subList.add((int)root.val);
+
+        // else go left and right
         if(root.left!=null){
             pathSumHelper(root.left, sum - (int)root.val,result,subList);
         }
         if(root.right!=null){
             pathSumHelper(root.right, sum - (int)root.val,result,subList);
         }
-        if(root.left==null && root.right == null){
-            pathSumHelper(root.left, sum - (int)root.val,result,subList);
-        }
 
+        // when return pop up this node's value.
         if(!subList.isEmpty())
             subList.remove(subList.size()-1);
     }

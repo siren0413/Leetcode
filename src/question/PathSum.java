@@ -8,15 +8,14 @@ import beans.TreeNode;
 public class PathSum {
 
     public static boolean hasPathSum(TreeNode root, int sum){
-        return root!=null && hasPathSumHelper(root,sum);
-    }
-
-    private static boolean hasPathSumHelper(TreeNode root, int sum){
         if(root == null)
-            return  sum==0;
-        return (root.left!=null && hasPathSumHelper(root.left, sum - (int)root.val)) | (root.right!=null && hasPathSumHelper(root.right, sum - (int)root.val)) | (root.left==null &&root.right==null&& hasPathSumHelper(root.left, sum - (int)root.val));
-
+            return false;
+        if(root.left == null && root.right ==null)
+            return  (sum -(int)root.val) ==0;
+        return (root.left!=null && hasPathSum(root.left, sum - (int)root.val)) | (root.right!=null && hasPathSum(root.right, sum - (int)root.val));
     }
+
+
 
     public static void main(String[] args){
 //        TreeNode n1 = new TreeNode(5);
