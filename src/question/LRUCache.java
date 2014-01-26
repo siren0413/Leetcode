@@ -1,122 +1,128 @@
 package question;
 
-import java.util.HashMap;
+import java.util.*;
+
 
 public class LRUCache {
-	private ListNode head;
-	private ListNode tail;
-	private HashMap map = new HashMap();
-	private int capacity = 0;
-	private int size = 0;
+    Map<Integer, ListNode> map;
+    ListNode head, tail;
+    int capacity;
+    int size;
 
-	public LRUCache(int capacity) {
-		this.capacity = capacity;
-	}
+    public LRUCache(int capacity) {
+        map = new HashMap<>(capacity);
+        head = new ListNode(0,0);
+        tail = new ListNode(0,0);
+        head.next = tail;
+        tail.pre = head;
+        size = 0;
+        this.capacity = capacity;
+    }
 
-	public int get(int key) {
-		ListNode node = (ListNode) map.get(key);
-		if (node == null)
-			return -1;
-		moveToFirst(node);
-		return node.val;
-	}
+    public int get(int key) {
+        if(map.containsKey(key)) {
+            moveToFirst(map.get(key));
+            return map.get(key).val;
+        }
+        return -1;
+    }
 
-	public void set(int key, int value) {
-		if (map.containsKey(key)) {
-			ListNode node = (ListNode) map.get(key);
-			node.val = value;
-			moveToFirst(node);
-			return;
-		}
-		size++;
-		if (size > capacity) {
-			size--;
-			removeLast();
-		}
-		ListNode newNode = new ListNode(key, value);
-		addFirst(newNode);
+    public void set(int key, int value) {
+        if(map.containsKey(key)){
+            map.get(key).val = value;
+            moveToFirst(map.get(key));
+        }else{
+            ListNode node = new ListNode(key,value);
+            map.put(key,node);
+            insert(node);
+        }
+    }
 
-	}
+    private void moveToFirst(ListNode node){
+        if(head.next == node) return;
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
+        node.next = head.next;
+        head.next.pre = node;
+        head.next = node;
+        node.pre = head;
+    }
 
-	public void addLast(ListNode node) {
-		if (node == null)
-			return;
-		if (head == null) {
-			head = node;
-			tail = node;
-		} else {
-			tail.next = node;
-			node.pre = tail;
-			tail = node;
-		}
-		map.put(node.key, node);
-		size++;
-	}
+    private void insert(ListNode node) {
+        if (size >= capacity) {
+            remove(tail.pre);
+        }
+        node.next = head.next;
+        head.next.pre = node;
+        node.pre = head;
+        head.next = node;
+        size++;
+    }
 
-	public void addFirst(ListNode node) {
-		if (node == null)
-			return;
-		if (head == null) {
-			head = node;
-			tail = node;
-		} else {
-			node.next = head;
-			head.pre = node;
-			head = node;
-		}
-		map.put(node.key, node);
-	}
+    private ListNode remove(ListNode node) {
+        if(size == 0) return null;
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
+        map.remove(node.key);
+        size --;
+        return node;
+    }
 
-	public ListNode removeLast() {
-		if (head == null || tail == null)
-			return null;
-		ListNode removedNode = tail;
-		if (size == 1) {
-			tail = head;
-		} else {
-			tail = tail.pre;
-			tail.next = null;
-		}
-		map.remove(removedNode.key);
-		return removedNode;
-	}
 
-	public void moveToFirst(ListNode node) {
-		if (node == null || node == head) {
-			return;
-		}
-		if (node != head && node == tail) {
-			tail = node.pre;
-		}
-		ListNode temp = node;
-		node.pre.next = node.next;
-		node.next = head;
-		head.pre = node;
-		head = node;
-	}
+    class ListNode {
+        int key, val;
+        ListNode next;
+        ListNode pre;
+
+        ListNode(int key, int val) {
+            this.val = val;
+            this.key = key;
+            next = null;
+            pre = null;
+        }
+    }
+
+
+
+
+    // test
+    public static void main(String[] args){
+        LRUCache cache = new LRUCache(5);
+        cache.set(10,13);
+        cache.set(3,17);
+        cache.set(6,11);
+        cache.set(10,5);
+        cache.set(9,10);
+        cache.get(13);
+        cache.set(2, 19);
+        cache.get(2);
+        cache.get(3);
+        cache.set(5, 25);
+        cache.set(9, 22);
+        cache.set(5, 5);
+        cache.set(1, 30);
+        cache.get(11);
+        cache.set(9, 12);
+        cache.get(7);
+        cache.get(5);
+        cache.get(8);
+        cache.get(9);
+        cache.set(4, 30);
+        cache.set(9, 3);
+        cache.get(9);
+        cache.get(10);
+        cache.get(10);
+        cache.set(6, 14);
+        cache.set(3, 1);
+        cache.get(3);
+        cache.set(10, 11);
+        cache.get(8);
+        cache.set(2, 14);
+        cache.get(1);
+        cache.get(5);
+        cache.get(4);
+        cache.set(11, 4);
+        cache.set(12, 24);
+        cache.set(5,18);
+    }
 }
-
-class ListNode {
-	int val;
-	int key;
-	ListNode next;
-	ListNode pre;
-	ListNode(int key, int x) {
-		this.key = key;
-		val = x;
-		next = null;
-		pre = null;
-	}
-	
-	@Override
-	public int hashCode(){
-		return key;	
-	}
-	
-	@Override
-	public boolean equals(Object obj){
-		ListNode node = (ListNode)obj;
-		return 	this.key == node.key;
-	}
-}
-

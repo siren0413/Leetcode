@@ -1,5 +1,7 @@
 package question;
 
+import beans.ListNode;
+
 public class LinkedListCycle {
 
     public static boolean hasCycle(ListNode head) {
